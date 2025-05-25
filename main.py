@@ -1,5 +1,7 @@
 import logging
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from typing import List
 from src.models.paper import Paper # Ensure this path is correct based on your structure
 from src.services import arxiv_service # Ensure this path is correct
@@ -14,11 +16,13 @@ app = FastAPI(
     version="0.1.0"
 )
 
+app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+
 logger.info("Application startup complete.")
 
-@app.get("/")
+@app.get("/", response_class=FileResponse)
 async def root():
-    return {"message": "Welcome to the ArXiv Paper Viewer API"}
+    return "frontend/static/index.html"
 
 @app.get("/papers/latest", response_model=List[Paper], summary="Get Latest Papers", description="Fetches the most recently submitted papers from arXiv, with pagination.")
 async def api_get_latest_papers(start: int = 0, max_results: int = 25):

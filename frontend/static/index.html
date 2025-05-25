@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv Paper Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ArXiv Paper Viewer</h1>
+    </header>
+
+    <section id="search-section">
+        <h2>Search Papers</h2>
+        <input type="text" id="search-keyword" placeholder="Enter keyword...">
+        <button id="search-button">Search</button>
+    </section>
+
+    <section id="latest-papers">
+        <h2>Latest Papers</h2>
+        <div id="latest-papers-list">
+            <!-- Papers will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <section id="search-results">
+        <h2>Search Results</h2>
+        <div id="search-results-list">
+            <!-- Search results will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
