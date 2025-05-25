@@ -15,7 +15,7 @@ function displayPapers(papers, containerId) {
         title.textContent = paper.title;
 
         const authors = document.createElement('p');
-        authors.textContent = `Authors: ${paper.authors.join(', ')}`;
+        authors.textContent = `Authors: ${paper.authors.map(author => author.name).join(', ')}`;
 
         const summary = document.createElement('p');
         summary.textContent = paper.summary;
