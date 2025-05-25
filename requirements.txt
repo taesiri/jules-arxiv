@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+httpx
+feedparser
+SQLAlchemy
+python-dotenv
+pytest
+pytest-asyncio
+respx
