@@ -7,7 +7,7 @@ This is the backend API for the ArXiv Paper Viewer application, built with FastA
 ### Prerequisites
 
 *   Python 3.8+
-*   pip (Python package installer)
+*   uv (Python package and project manager)
 
 ### Setup
 
@@ -17,34 +17,26 @@ This is the backend API for the ArXiv Paper Viewer application, built with FastA
     # cd <repository-directory>
     ```
 
-2.  **Create a virtual environment:**
-    It's highly recommended to use a virtual environment to manage project dependencies.
+2.  **Install uv (if not already installed):**
     ```bash
-    python -m venv venv
+    # On macOS and Linux:
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    # Or via pip:
+    # pip install uv
     ```
 
-3.  **Activate the virtual environment:**
-    *   On Windows:
-        ```bash
-        .\venv\Scripts\activate
-        ```
-    *   On macOS and Linux:
-        ```bash
-        source venv/bin/activate
-        ```
-
-4.  **Install dependencies:**
-    Install all the required packages from `requirements.txt`:
+3.  **Install dependencies:**
+    uv will automatically manage the virtual environment and install dependencies:
     ```bash
-    pip install -r requirements.txt
+    uv sync
     ```
 
 ### Running the Application
 
-To run the FastAPI application, use Uvicorn (which was installed as a dependency):
+To run the FastAPI application using uv:
 
 ```bash
-uvicorn main:app --reload
+uv run uvicorn main:app --reload
 ```
 
 *   `main:app` refers to the `app` instance in the `main.py` file.
@@ -55,7 +47,7 @@ The application will typically be available at `http://127.0.0.1:8000`.
 ### API Documentation
 
 Once the application is running, you can access the interactive API documentation (provided by Swagger UI) at:
-`http://120.0.0.1:8000/docs`
+`http://127.0.0.1:8000/docs`
 
 And the alternative API documentation (ReDoc) at:
 `http://127.0.0.1:8000/redoc`
