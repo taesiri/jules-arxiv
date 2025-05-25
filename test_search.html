@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Test</title>
+</head>
+
+<body>
+    <h1>Search Function Test</h1>
+    <input type="text" id="search-keyword" placeholder="Enter search term..." value="machine learning">
+    <button id="search-button">Search</button>
+    <div id="search-results-list"></div>
+
+    <script>
+        async function searchPapers() {
+            console.log('searchPapers function called');
+
+            const keywordInput = document.getElementById('search-keyword');
+            const keyword = keywordInput.value.trim();
+            const containerId = 'search-results-list';
+
+            console.log('Search keyword:', keyword);
+
+            if (!keyword) {
+                alert('Please enter a search keyword.');
+                return;
+            }
+
+            try {
+                const url = `/papers/search?keyword=${encodeURIComponent(keyword)}`;
+                console.log('Making fetch request to:', url);
+
+                const response = await fetch(url);
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const papers = await response.json();
+                console.log('Received papers:', papers.length, papers);
+
+                const container = document.getElementById(containerId);
+                if (papers.length === 0) {
+                    container.innerHTML = '<p>No papers found.</p>';
+                } else {
+                    container.innerHTML = `<p>Found ${papers.length} papers!</p>`;
+                    papers.forEach((paper, index) => {
+                        const div = document.createElement('div');
+                        div.innerHTML = `<h4>${index + 1}. ${paper.title}</h4><p>${paper.summary.substring(0, 200)}...</p>`;
+                        container.appendChild(div);
+                    });
+                }
+            } catch (error) {
+                console.error('Error searching papers:', error);
+                const container = document.getElementById(containerId);
+                container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM content loaded');
+            const searchButton = document.getElementById('search-button');
+            if (searchButton) {
+                console.log('Adding click listener to search button');
+                searchButton.addEventListener('click', searchPapers);
+            }
+        });
+    </script>
+</body>
+
+</html>
